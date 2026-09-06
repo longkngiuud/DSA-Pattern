@@ -1,10 +1,48 @@
+def maximumXor(nums, maximumBit):
+
+    # Prefix Sum
+    n = len(nums)
+    prefix_sum = [0] * n
+    prefix_sum[0] = nums[0]
+
+    for i in range(1, n):
+        prefix_sum[i] = prefix_sum[i - 1] ^ nums[i]
+
+
+    # Bit masking
+    maxXOR = (1 << maximumBit) - 1
+
+    # Remove last element
+    ans = []
+    for prefix in range(n-1, -1, -1):
+        k = prefix_sum[prefix] ^ maxXOR
+        ans.append(k)
+    return ans
+
+
+
+if __name__ == '__main__':
+
+    nums = [2,3,4,7]
+    maximumBit = 3
+    print(maximumXor(nums, maximumBit))
+
+
+
+
+
+
+
+
+
+
+
 '''You are given a sorted array nums of n non-negative integers and an integer maximumBit. You want to perform the following query n times:
 
 Find a non-negative integer k < 2maximumBit such that nums[0] XOR nums[1] XOR ... XOR nums[nums.length-1] XOR k is maximized. k is the answer to the ith query.
 Remove the last element from the current array nums.
 Return an array answer, where answer[i] is the answer to the ith query.
 
- 
 
 Example 1:
 
